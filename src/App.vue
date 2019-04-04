@@ -1,9 +1,9 @@
 <template>
   <div class="boards">
-   <Board name="onHold" color="" :cards="board1" />
-   <Board name="inProgress" color="" :cards="board2" />
-   <Board name="needsReview" color="" :cards="board3" />
-   <Board name="approved" color="" :cards="board4" />
+   <Board name="onHold" />
+   <Board name="inProgress" />
+   <Board name="needsReview" />
+   <Board name="approved"  />
   </div>
 </template>
 
@@ -14,21 +14,7 @@ export default {
   name: 'app',
   components: {
     Board
-  },
-  computed: {
-    board1() {
-      return this.$store.state.onHold
-    },
-    board2() {
-      return this.$store.state.inProgress
-    },
-    board3() {
-      return this.$store.state.needsReview
-    },
-    board4() {
-      return this.$store.state.approved
-    }
-  },
+  }
 }
 </script>
 

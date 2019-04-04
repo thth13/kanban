@@ -1,8 +1,8 @@
 <template>
-	<draggable v-model="cards" class="cardList" group="cards" @end="handleDrop">
+	<draggable v-model="cards" class="cardList" group="cards">
 		<div class="card" v-for="item in cards" :key="item.id">
 			<span class="card-id">id: </span><span>{{ item.id }}</span>
-			<button class="delete-button">
+			<button class="delete-button" @click="deleteCard(item.id)">
 				<div class="delete"></div>
 			</button>
 			<p>{{ item.content }}</p>
@@ -16,15 +16,34 @@
 	export default {
 		name: 'Cards',
 		props: {
-			cards: Array
+			name: String
 		},
 		components: {
 			draggable
 		},
-		methods: {
-			handleDrop() {
+		mounted() {
+			this.$store.commit('getCards');
+		},
+		computed: {
+			cards: {
+				get() {
+					return this.$store.state.cards[this.name]
+				},
+				set(value) {
+					this.$store.commit('setCard', {value, key: this.name})
+				}
 			}
 		},
+		methods: {
+			deleteCard(id) {
+				var data = {
+					id,
+					name: this.name
+				};
+
+				this.$store.dispatch('deleteCard', data);
+			}
+		}
 	}
 </script>
 
@@ -37,6 +56,7 @@
 		margin: 10px;
 		cursor: move;
 	}
+	.cardList::-webkit-scrollbar { width: 0; }
 
 	.card-id {
 		color: white;

@@ -1,7 +1,7 @@
 <template>
 	<div class="board">
 		<h2 class="board-onhold" :class="name">{{ name }}</h2>
-		<Cards :cards="cards" />
+		<Cards :name="name" />
 		<AddCard :name="name" />
 	</div>
 </template>
@@ -13,8 +13,7 @@
 	export default {
 		name: 'Board',
 		props: {
-			name: String,
-			cards: Array
+			name: String
 		},
 		components: {
 			AddCard,
@@ -30,8 +29,6 @@
 		width: 330px;
 		min-width: 230px;
 		height: 100%;
-		max-height: 80vh;
-		overflow-y: hidden;
 		margin-bottom: 25px;
 	}
 

@@ -5,43 +5,43 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
-		 onHold: [
-        { id: 1, content: 'asadasda'},
-        { id: 2, content: 'asadasda'},
-        { id: 3, content: 'asadasda'},
-        { id: 4, content: 'asadasda'}
-     ],
-     inProgress: [
-       { id: 5, content: 'asadasda'},
-       { id: 6, content: 'asadasda'},
-       { id: 7, content: 'asadasda'},
-       { id: 8, content: 'asadasda'}
-     ],
-     needsReview: [
-       { id: 9, content: 'asadasda'},
-       { id: 10, content: 'asadasda'},
-       { id: 11, content: 'asadasda'},
-       { id: 12, content: 'asadasda'}
-     ],
-     approved: [
-       { id: 13, content: 'asadasda'},
-       { id: 14, content: 'asadasda'},
-       { id: 15, content: 'asadasda'},
-       { id: 16, content: 'asadasda'}
-     ],
-     count: 0
+    cards: {
+		 onHold: [],
+     inProgress: [],
+     needsReview: [],
+     approved: []
+   }
 	},
 	mutations: {
-		ADD_NOTE (state, note) {
-      var kek = note.card;
-      alert(note.content);
-      state.onHold.push(note);
-		},
+    setCard (state, { value, key }) {
+      state.cards[key] = value;
 
+      const newItem = JSON.stringify(state.cards);
+      localStorage.setItem('cards', newItem);
+    },
+    getCards (state) {
+      const cards = JSON.parse(localStorage.getItem('cards'));
+      state.cards = cards;
+    },
+    ADD_CARD (state, { newCard, key}) {
+      state.cards[key].push(newCard);
+
+      const newItem = JSON.stringify(state.cards);
+      localStorage.setItem('cards', newItem);
+    },
+    DELETE_CARD (state, data) {
+      state.cards[data.name] = state.cards[data.name].filter(item => item.id !== data.id)
+      
+      const newItem = JSON.stringify(state.cards);
+      localStorage.setItem('cards', newItem);
+    }
 	},
 	actions: {
-    addNote({commit}, note) {
-      commit('ADD_NOTE', note);
+    addCard({commit}, card) {
+      commit('ADD_CARD', card)
+    },
+    deleteCard({commit}, data) {
+      commit('DELETE_CARD', data)
     }
 	}
 })

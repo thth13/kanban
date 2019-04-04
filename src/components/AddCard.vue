@@ -39,12 +39,13 @@
 			},
 			addCard(e) {
 				e.preventDefault();
+
 				let newCard = {
-					id: this.name,
+					id: Date.now(),
 					content: this.text
 				}
 
-				this.$store.dispatch('addNote', newCard);
+				this.$store.dispatch('addCard', { newCard, key: this.name });
 
 				this.text = '';
 				this.isAdd = !this.isAdd;
