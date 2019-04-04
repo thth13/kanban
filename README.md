@@ -1,4 +1,4 @@
-#### [Live preview](http://thth13.pro)
+##### [Live demo](http://thth13.pro)
 
 ## Build Setup
 
