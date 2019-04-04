@@ -20,8 +20,10 @@ const store = new Vuex.Store({
       localStorage.setItem('cards', newItem);
     },
     getCards (state) {
-      const cards = JSON.parse(localStorage.getItem('cards'));
-      state.cards = cards;
+      if(localStorage.getItem('cards')) {
+        const cards = JSON.parse(localStorage.getItem('cards'));
+        state.cards = cards;
+      }
     },
     ADD_CARD (state, { newCard, key}) {
       state.cards[key].push(newCard);
